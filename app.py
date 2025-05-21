@@ -4,7 +4,7 @@ import pandas as pd
 
 app = Flask(__name__)
 app.secret_key = "clave-secreta-segura"
-EXCEL_URL = "https://onedrive.live.com/download?resid=EabJzYVRUKtBvASKpN0tsy8BQoyQBdGntzuANx058L1FUg"
+EXCEL_URL = "https://1drv.ms/x/c/4ca82f005a28ad72/EabJzYVRUKtBvASKpN0tsy8BQoyQBdGntzuANx058L1FUg?e=cIx7aV"
 
 @app.route("/", methods=["GET", "POST"])
 def login():
