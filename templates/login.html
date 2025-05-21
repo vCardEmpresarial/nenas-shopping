@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nena's Shopping</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #fce4ec;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #111;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            min-height: 100vh;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        input[type=submit] {
+            background-color: #000;
+            color: #fff;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        p {
+            color: red;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Nena's Shopping 🛍️</h2>
+        {% if error %}
+            <p>{{ error }}</p>
+        {% endif %}
+        <form method="POST">
+            <label>Clave:</label><br>
+            <input type="text" name="clave" required><br>
+            <label>Contraseña:</label><br>
+            <input type="password" name="password" required><br><br>
+            <input type="submit" value="Ingresar">
+        </form>
+    </div>
+</body>
+</html>
