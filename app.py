@@ -4,7 +4,7 @@ import pandas as pd
 
 app = Flask(__name__)
 app.secret_key = "clave-secreta-segura"
-EXCEL_URL = "https://1drv.ms/x/c/3c08c8db30055acd/EbtEf3xGXmlAhTgML7s2fvgBpBuoFrVUCGpaZcc5FgHGfA?e=7bRqCK"
+EXCEL_URL = "https://docs.google.com/spreadsheets/d/1D1txp7lKGItuMAa14neECoZKXMB3jRy-/edit?usp=sharing&ouid=104857370499470822424&rtpof=true&sd=true"
 
 @app.route("/", methods=["GET", "POST"])
 def login():
