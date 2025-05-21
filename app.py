@@ -1,10 +1,22 @@
-
 from flask import Flask, render_template, request, redirect, url_for, session
 import pandas as pd
+from io import BytesIO
+import requests
+import os
 
 app = Flask(__name__)
 app.secret_key = "clave-secreta-segura"
-EXCEL_URL = "https://docs.google.com/spreadsheets/d/1D1txp7lKGItuMAa14neECoZKXMB3jRy-/edit?usp=sharing&ouid=104857370499470822424&rtpof=true&sd=true"
+
+URL_EXCEL = "https://docs.google.com/spreadsheets/d/1D1txp7lKGItuMAa14neECoZKXMB3jRy-/export?format=xlsx"
+
+def obtener_dataframe():
+    response = requests.get(URL_EXCEL)
+    if response.status_code == 200:
+        df = pd.read_excel(BytesIO(response.content))
+        df.columns = df.columns.str.strip().str.lower()
+        return df
+    else:
+        raise Exception("No se pudo descargar el archivo desde Google Sheets.")
 
 @app.route("/", methods=["GET", "POST"])
 def login():
@@ -12,7 +24,7 @@ def login():
         clave = request.form["clave"].strip().lower()
         password = request.form["password"].strip()
 
-        df = pd.read_excel(EXCEL_URL)
+        df = obtener_dataframe()
         df["clave"] = df["clave"].astype(str).str.strip().str.lower()
         df["contraseña"] = df["contraseña"].astype(str).str.strip()
 
@@ -32,13 +44,12 @@ def compras():
         return redirect(url_for("login"))
 
     clave = session["clave"]
-
-    df = pd.read_excel(EXCEL_URL)
+    df = obtener_dataframe()
     df["clave"] = df["clave"].astype(str).str.strip().str.lower()
     user_data = df[df["clave"] == clave]
 
-    compras = user_data[["FECHA", "Articulo", "PRECIO"]]
-    total = compras["PRECIO"].sum()
+    compras = user_data[["fecha", "articulo", "precio"]]
+    total = compras["precio"].sum()
     nombre = user_data.iloc[0]["clienta"]
 
     return render_template("compras.html", nombre=nombre, compras=compras.to_dict(orient="records"), total=total)
@@ -48,9 +59,6 @@ def logout():
     session.clear()
     return redirect(url_for("login"))
 
-import os
-
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
-
