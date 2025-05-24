@@ -22,18 +22,20 @@
     <table>
         <tr>
             <th>Fecha</th>
+            <th>Hora</th>
             <th>Artículo</th>
             <th>Precio</th>
         </tr>
         {% for compra in compras %}
         <tr>
             <td>{{ compra['fecha'] }}</td>
+            <td>{{ compra['hora de conf'] }}</td>
             <td>{{ compra['articulo'] }}</td>
-            <td>${{ compra['precio'] }}</td>
+            <td>{{ compra['precio'] }}</td>
         </tr>
         {% endfor %}
     </table>
 </div>
-<h3>Total: ${{ total }}</h3>
+<h3>Total: {{ total }}</h3>
 </body>
 </html>

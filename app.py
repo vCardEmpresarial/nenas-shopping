@@ -48,8 +48,13 @@ def compras():
     df["clave"] = df["clave"].astype(str).str.strip().str.lower()
     user_data = df[df["clave"] == clave]
 
-    compras = user_data[["fecha", "hora de conf", "articulo", "precio"]]
-    total = compras["precio"].sum()
+    compras = user_data[["fecha", "hora de conf", "articulo", "precio"]].copy()
+    compras["precio"] = compras["precio"].replace('[\$,]', '', regex=True).replace(',', '', regex=False).astype(float)
+    compras["precio"] = compras["precio"].apply(lambda x: "${:,.0f}".format(x))
+
+    total = user_data["precio"].replace('[\$,]', '', regex=True).replace(',', '', regex=False).astype(float).sum()
+    total = "${:,.0f}".format(total)
+
     nombre = user_data.iloc[0]["clienta"]
 
     return render_template("compras.html", nombre=nombre, compras=compras.to_dict(orient="records"), total=total)
