@@ -51,6 +51,9 @@ def compras():
     compras = user_data[["fecha", "hora de conf", "articulo", "precio"]].copy()
     compras["precio"] = compras["precio"].replace('[\$,]', '', regex=True).replace(',', '', regex=False).astype(float)
     compras["precio"] = compras["precio"].apply(lambda x: "${:,.0f}".format(x))
+    
+    # Formatear fecha
+    compras["fecha"] = pd.to_datetime(compras["fecha"]).dt.strftime('%d/%m/%Y')
 
     total = user_data["precio"].replace('[\$,]', '', regex=True).replace(',', '', regex=False).astype(float).sum()
     total = "${:,.0f}".format(total)
