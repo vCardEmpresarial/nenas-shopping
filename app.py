@@ -48,7 +48,7 @@ def compras():
     df["clave"] = df["clave"].astype(str).str.strip().str.lower()
     user_data = df[df["clave"] == clave]
 
-    compras = user_data[["fecha", "articulo", "precio"]]
+    compras = user_data[["fecha", "Hora de conf", "articulo", "precio"]]
     total = compras["precio"].sum()
     nombre = user_data.iloc[0]["clienta"]
 
