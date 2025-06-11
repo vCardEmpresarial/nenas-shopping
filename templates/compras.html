@@ -24,6 +24,7 @@
             <th>Fecha</th>
             <th>Hora</th>
             <th>Artículo</th>
+            <th>On line</th>
             <th>Precio</th>
         </tr>
         {% for compra in compras %}
@@ -31,6 +32,7 @@
             <td>{{ compra['fecha'] }}</td>
             <td>{{ compra['hora de conf'] }}</td>
             <td>{{ compra['articulo'] }}</td>
+            <td>{{ compra['on line'] }}</td>
             <td>{{ compra['precio'] }}</td>
         </tr>
         {% endfor %}
