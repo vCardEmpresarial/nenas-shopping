@@ -48,7 +48,7 @@ def compras():
     df["clave"] = df["clave"].astype(str).str.strip().str.lower()
     user_data = df[df["clave"] == clave]
 
-    compras = user_data[["fecha", "hora de conf", "articulo", "precio"]].copy()
+    compras = user_data[["fecha", "hora de conf", "articulo", "on line", "precio"]].copy()
     compras["precio"] = compras["precio"].replace('[\$,]', '', regex=True).replace(',', '', regex=False).astype(float)
     compras["precio"] = compras["precio"].apply(lambda x: "${:,.0f}".format(x))
     
