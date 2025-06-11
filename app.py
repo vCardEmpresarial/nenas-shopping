@@ -54,6 +54,7 @@ def compras():
     
     # Formatear fecha
     compras["fecha"] = pd.to_datetime(compras["fecha"]).dt.strftime('%d/%m/%Y')
+    compras = compras.fillna("-")
 
     total = user_data["precio"].replace('[\$,]', '', regex=True).replace(',', '', regex=False).astype(float).sum()
     total = "${:,.0f}".format(total)
